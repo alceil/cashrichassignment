@@ -2,8 +2,8 @@ class Cmcmodel {
   final String? name;
   final String? symbol;
   final int? cmcRank;
-  final int? price;
-  final int? percentageChange;
+  final double? price;
+  final double? percentageChange;
 
   Cmcmodel({
     required this.name,

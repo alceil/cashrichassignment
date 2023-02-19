@@ -1,15 +1,26 @@
 import 'dart:convert';
 
+import 'package:cashrichassignment/models/cmcmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class CmcProvider with ChangeNotifier {
+  List<Cmcmodel> _cmcData = [];
+  List<Cmcmodel> get cmcData => _cmcData;
 
+  Future getData() async {
+    // final String facebookFeedURL =
+    //     dotenv.env['GRAPH_API_BASE_URL_WITH_FIELDS']! +
+    //         dotenv.env['FACEBOOK_ACCESS_TOKEN']!;
 
+    // if (facebookFeedURL.isEmpty) {
+    //   debugPrint(
+    //       'Facebook Feed URL is not found in .env file\n Needed - GRAPH_API_BASE_URL_WITH_FIELDS & FACEBOOK_ACCESS_TOKEN\n Check the .env file is there in the root directory');
+    //   throw Exception('Facebook Feed URL is null');
+    // }
 
-   Future getData() async {
-
+    // final url = Uri.parse(facebookFeedURL);
 
     String _url =
         'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC,ETHLTC';
@@ -22,14 +33,15 @@ class CmcProvider with ChangeNotifier {
     List test = [];
     Map data = decodeData['data'];
 
-
     data.entries.map((e) {
       test.add(e);
     });
-for (var entry in data.entries) {
-  print(entry.key);
-  print(entry.value['name']);
-}
+    List<Cmcmodel> tempData = [];
+    for (var entry in data.entries) {
+      tempData.add(Cmcmodel.convert(entry.value));
+    }
+    _cmcData = tempData;
+    print(tempData);
     //     testMap.entries.map((e) {
     //   print(e);
     // });
@@ -52,5 +64,5 @@ for (var entry in data.entries) {
     //   debugPrint('Facebook Data Provider Error: $error');
     //   rethrow;
     // }
-    }
+  }
 }
