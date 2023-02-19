@@ -25,14 +25,8 @@ class _HomePageState extends State<HomePage> {
     acessDataFromServer();
     super.didChangeDependencies();
   }
-  
 
-  @override
-  void initState() {
-        acessDataFromServer();
-    // TODO: implement initState
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,23 +69,23 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Flexible(
-              child: Consumer<CmcProvider>(
-                builder: (ctx, data, _) => ListView.builder(
-                    itemCount: data.cmcData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      print("name");
-                      print(data.cmcData[index].name);
-                      return HomeCard(
-                          name: data.cmcData[index].name,
-                          cmcRank: data.cmcData[index].cmcRank,
-                          price: data.cmcData[index].price,
-                          percentageChange:
-                              data.cmcData[index].percentageChange,
-                          symbol: data.cmcData[index].symbol);
-                    }),
-              ),
-            ),
+                       Flexible(
+                child:  Consumer<CmcProvider>(
+                              builder: (ctx, data, _) =>data.cmcData.isEmpty? Center(child: CircularProgressIndicator(color: Colors.yellow,))
+                          : ListView.builder(
+                                  itemCount: data.cmcData.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return HomeCard(
+                                        name: data.cmcData[index].name,
+                                        cmcRank: data.cmcData[index].cmcRank,
+                                        price: data.cmcData[index].price,
+                                        percentageChange: data
+                                            .cmcData[index].percentageChange,
+                                        symbol: data.cmcData[index].symbol);
+                                  }),
+                            )
+                    ),
           ],
         ),
       ),

@@ -1,9 +1,12 @@
 import 'package:cashrichassignment/pages/HomePage.dart';
 import 'package:cashrichassignment/providers/cmcprovider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future main() async {
+    /// [ dotenv ] is used to initialize the [ Dotenv ].
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => CmcProvider()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'CoinRich',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

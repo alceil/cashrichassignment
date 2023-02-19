@@ -1,0 +1,1 @@
+const String cmcBaseUrl = 'https://pro-api.coinmarketcap.com';
